@@ -27,18 +27,17 @@ try {
 	// Send command
 	$serial->sendMessage($command . "\r");
 	$answer = $serial->readPort();
-	$serial->sendMessage($command . "\r");
-	$answer = $answer . $serial->readPort();
+	
+	// If empty, retry
+	if ($answer == "") {
+		$serial->sendMessage($command . "\r");
+		$answer = $serial->readPort();	
+	}
 	$serial->deviceClose();
 
 	// Return JSON
-	$first_part = strstr($answer, '{');
-	if (strstr($first_part, '}', true) != "") {
-		echo strstr($first_part, '}', true) . "}";	
-	}
-	else {
-		echo "{\"connected\": false}";
-	}	
+	if ($answer == "") {echo "{\"connected\": false}";}
+	else {echo $answer;}
 }
 catch (Exception $e) {
 	echo "{\"connected\": false}";

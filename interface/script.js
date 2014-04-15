@@ -52,7 +52,7 @@ setInterval(function() {
         }
     });
 
-}, 5000);
+}, 2000);
 
 // Function to control LEDs
 function buttonClick(clicked_id){
