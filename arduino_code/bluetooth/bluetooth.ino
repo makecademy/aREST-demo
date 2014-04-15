@@ -1,4 +1,4 @@
-// Demo of the aREST library with XBee
+// Demo of the aREST library with Bluetooth
 
 // Libraries
 #include <Adafruit_CC3000.h>
@@ -30,8 +30,8 @@ void setup(void)
   rest.variable("humidity",&humidity);
   
   // Give name and ID to device
-  rest.set_id("008");
-  rest.set_name("dapper_drake");
+  rest.set_id("003");
+  rest.set_name("lingering_lion");
   
   dht.begin();
 }
