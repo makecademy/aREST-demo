@@ -9,34 +9,40 @@ include "php_serial.class.php";
 // Get configuration data
 $serial_port = "/dev/cu.usbserial-A702LF8B";
 
-$serial = new phpSerial;
-$serial->deviceSet($serial_port);
-$serial->confBaudRate(9600);
-$serial->confParity("none");
-$serial->confCharacterLength(8);
-$serial->confStopBits(1);
+try {
+	$serial = new phpSerial;
+	$serial->deviceSet($serial_port);
+	$serial->confBaudRate(9600);
+	$serial->confParity("none");
+	$serial->confCharacterLength(8);
+	$serial->confStopBits(1);
 
-$h = popen('nohup sleep 5 < '. $serial_port . ' &', 'r');
-pclose($h);
-exec('stty -F '. $serial_port .' -hupcl');
-usleep(100000);
+	$h = popen('nohup sleep 5 < '. $serial_port . ' &', 'r');
+	pclose($h);
+	exec('stty -F '. $serial_port .' -hupcl');
+	usleep(100000);
 
-$serial->deviceOpen();
+	$serial->deviceOpen();
 
-// Send command
-$serial->sendMessage($command . "\r");
-$answer = $serial->readPort();
-$serial->sendMessage($command . "\r");
-$answer = $answer . $serial->readPort();
-$serial->deviceClose();
+	// Send command
+	$serial->sendMessage($command . "\r");
+	$answer = $serial->readPort();
+	$serial->sendMessage($command . "\r");
+	$answer = $answer . $serial->readPort();
+	$serial->deviceClose();
 
-// Return JSON
-$first_part = strstr($answer, '{');
-if (strstr($first_part, '}', true) != "") {
-	echo strstr($first_part, '}', true) . "}";	
+	// Return JSON
+	$first_part = strstr($answer, '{');
+	if (strstr($first_part, '}', true) != "") {
+		echo strstr($first_part, '}', true) . "}";	
+	}
+	else {
+		echo "{\"connected\": false}";
+	}	
 }
-else {
+catch (Exception $e) {
 	echo "{\"connected\": false}";
 }
+
 
 ?>

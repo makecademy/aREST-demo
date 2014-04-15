@@ -9,30 +9,38 @@ include "php_serial.class.php";
 // Get configuration data
 $serial_port = "/dev/tty.AdafruitEZ-Link06d5-SPP";
 
-$serial = new phpSerial;
-$serial->deviceSet($serial_port);
-$serial->confBaudRate(115200);
-$serial->confParity("none");
-$serial->confCharacterLength(8);
-$serial->confStopBits(1);
+try {
 
-$h = popen('nohup sleep 5 < '. $serial_port . ' &', 'r');
-pclose($h);
-exec('stty -F '. $serial_port .' -hupcl');
-usleep(100000);
+	$serial = new phpSerial;
+	$serial->deviceSet($serial_port);
+	$serial->confBaudRate(115200);
+	$serial->confParity("none");
+	$serial->confCharacterLength(8);
+	$serial->confStopBits(1);
 
-$serial->deviceOpen();
+	$h = popen('nohup sleep 5 < '. $serial_port . ' &', 'r');
+	pclose($h);
+	exec('stty -F '. $serial_port .' -hupcl');
+	usleep(100000);
 
-// Send command
-$serial->sendMessage($command . "\r");
-$answer = $serial->readPort();
-$serial->deviceClose();
+	$serial->deviceOpen();
 
-// Return JSON
-if ($answer != ""){
-	echo $answer;  
+	// Send command
+	$serial->sendMessage($command . "\r");
+	$answer = $serial->readPort();
+	$serial->deviceClose();
+
+	// Return JSON
+	if ($answer != ""){
+		echo $answer;  
+	}
+	else {
+		echo "{\"connected\": false}";
+	}
+
 }
-else {
+catch (Exception $e) {
 	echo "{\"connected\": false}";
 }
+
 ?>
