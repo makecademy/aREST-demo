@@ -5,3 +5,7 @@ Demo of the aREST library using WiFi, Bluetooth and XBee modules. The library im
 
 - arduino_code: contains all the different sketches for the Arduino boards 
 - interface: code for a simple web application to control a WiFi module, a Bluetooth module and a XBee module using the aREST library.
+
+You can find the article on the Open Home Automation website:
+
+http://www.openhomeautomation.net/arduino-rest/
