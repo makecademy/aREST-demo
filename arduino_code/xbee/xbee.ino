@@ -1,7 +1,6 @@
 // Demo of the aREST library with XBee
 
 // Libraries
-#include <Adafruit_CC3000.h>
 #include <SPI.h>
 #include <aREST.h>
 #include "DHT.h"
