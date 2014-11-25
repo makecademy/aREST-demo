@@ -53,8 +53,8 @@ void setup(void)
   rest.variable("humidity",&humidity);
    
   // Give name and ID to device
-  rest.set_id("003");
-  rest.set_name("mighty_cat");
+  rest.set_id("001");
+  rest.set_name("wifi");
   
   // Set up CC3000 and get connected to the wireless network.
   if (!cc3000.begin())

@@ -29,8 +29,8 @@ void setup(void)
   rest.variable("humidity",&humidity);
   
   // Give name and ID to device
-  rest.set_id("008");
-  rest.set_name("dapper_drake");
+  rest.set_id("003");
+  rest.set_name("xbee");
   
   dht.begin();
 }

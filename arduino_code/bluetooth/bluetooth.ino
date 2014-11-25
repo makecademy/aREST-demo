@@ -29,8 +29,8 @@ void setup(void)
   rest.variable("humidity",&humidity);
   
   // Give name and ID to device
-  rest.set_id("003");
-  rest.set_name("lingering_lion");
+  rest.set_id("002");
+  rest.set_name("bluetooth");
   
   dht.begin();
 }
